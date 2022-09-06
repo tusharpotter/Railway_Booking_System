@@ -1,0 +1,69 @@
+// 19CS30018 - Gaurav Madkaikar
+
+Testplan
+In general methods will be tested by calling the member functions and equating them to their corresponding golden outputs.
+In case of BookingClasses, statements will be printed to denote the order of construction calls
+
+Unit Testing : ( ** All files included within the folder 'Unit Testing' )
+
+* Class Station
+
+We consider the testing of methods and friend functions implemented within class "Station" 
+
+1. Constructor :  Proper initialisation of the object with the provided argument
+2. GetName() : Return the name of the initialised object
+3. GetDistance() : Return the distance between 2 Stations
+4. operator<< : Implemented as a friend function, output the Station name to the standard output
+
+* Class Date
+
+We consider the testing of the methods and friend functions implemented within class "Date" 
+
+1. Constructor : Consider objects of each type and ensure proper initialisation
+   - Overloaded Constructors
+   a) arguments of the form (dd, mm, yyyy) eg. (20,3,2020)
+   b) arguments of the form (dd, mmm, yyyy) eg. (20,Mar,2020)
+2. operator<< : Implemented as a friend function, output the Date in dd/mmm/yyyy format to the standard output
+
+* Class Railways
+
+We consider the testing of the methods implemented within class "Railways" by creating an instance
+1. GetInstance() : Create an instance if not created, else return the same instance 
+2. GetDistance() : Return the distance between 2 Stations
+
+* Class BookingClasses -> SeatClasses, BerthClasses
+
+Implemented as abstract base classes
+We consider the testing of the methods implemented within class "BookingClasses", "SeatClasses", "BerthClasses" by creating objects of its derived concrete classes (specializations)
+Since abstract classes are implementation details, it does not make a huge difference from where the specialised classes derive the data from as long as there is no
+function/attribute unique to the base class
+Thus, abstract base classes can be tested by their derived concrete classes. 
+
+The derived classes can implement the polymorphic hierarchy in two ways (in this application):
+a) Override the existing non-virtual methods (Static Polymorphism)
+b) Implement pure virtual functions (Dynamic Polymorphism)
+
+Thus, we create object refernces of some booking class (eg. ACFirstClass, AC2Tier, AC3Tier and so on...) and test the methods available in the base class.\
+Also, the order of construction call can be observed by print statements.
+
+* Class Booking
+
+We consider the testing of the methods and friend functions implemented within class "Booking" 
+1. Constructor : Proper initialisation of the object with the provided arguments
+2. ComputeFare() : For a given object, check the golden output with the value returned by the ComputeFare() function 
+3. GetDistance() : Return the distance between two Station objects 
+
+Application Test : ( ** Two test .cpp files provided in the folder 'Source')
+
+Here we compare the final output of the application as a whole to the expected output and check for its correctness.
+
+The following scenarios are to be tested/compared for correctness:
+(1) Create two objects with similar data (including Date of travel) but the Date of Travel will be provided in different formats
+(2) Two objects with similar from/To stations but reversed initialisation (as distances will remain same)
+(3) Create objects of each available class type and match the output to the expected one
+(4) Check if Constructors and Destructors of all classes involved in the hierarchy are called on creating instances
+
+
+
+
+

@@ -1,0 +1,79 @@
+
+// 19CS30018 - Gaurav Madkaikar
+
+Design of the Railway Booking System :
+
+* General coding principles :
+(a) As stated in the assignment statement, attribute names were followed with an underscore(_), while static variables were preceded with a "s"
+(b) operator<< is generally overloaded as a friend function as it serves two purposes, (1) it preserves encapsulation and (2) it works in cases where implicit casting of the lvalue is involved
+(c) Singleton Classes are implemented as Meyer's Singleton where the constructors are private (protected if a base class), and the constructor can only be accessed by a static function
+    Destructors can be public/private
+    An instance of the class is created when the static fn. is first called and for the subsequent fn. calls, the reference to the same instance is returned (viz. property of Singletons)
+(d) The member methods which do not change any attribute values are defined as const methods so that const objects can access these methods
+(e) Virtual destructors in base classes are important to prevent slicing of derived objects
+
+* Classes Implemented:
+    (a) Station : Implemented as Simple Data Class
+    (b) Date : Implemented as Simple Data Class
+    (c) Railways : Implemented as Meyer's Singleton
+    (d) BookingClasses : Implemented as Meyer's Singleton and an abstract class (has a )
+    (e) SeatClasses : Implemented as Meyer's Singleton and an abstract class
+    (f) BerthClasses : Implemented as Meyer's Singleton and an abstract class
+    (g) ACFirstClass, AC2Tier, FirstClass, AC3Tier, ACChairCar, Sleeper, SecondSitting : Implemented as concrete classes
+
+Classes (d), (e), (f), (g) are involved in a multi-level Inheritance hierarchy based on the strongest property of Seats/Berths
+The hierarchy can be illustrated as follows :
+
+                                                                        BookingClasses         
+                                   SeatClasses                                                                BerthClasses
+                                -  ACFirstClass                                                             - ACChairCar
+                                -  AC2Tier                                                                  - SecondSitting
+                                -  FirstClass
+                                -  AC3Tier
+                                -  Sleeper
+
+* HLD and LLD of methods and attributes of each class involved in the Application :
+Class Station :
+    (a) Encapsulation is preserved with data members being private
+    (b) Copy constructor is provided to ensure deep copy of the object, each time an object is passed to a function/method
+
+Class Date :
+    (a) Overloaded constructors provided to handle inputs of different types
+    (b) Encapsulation is preserved with data members private
+    (c) enums provided to relate month name with their indices
+
+Class Railways :
+    (a) Since the master data of the Railways System is fixed, static variables are declared as private so that they cannot be manipulated directly
+    (b) Destructor is made private to prevent accidental deletion of the Railways class which is available for the entirety of the application
+    (c) On calling the constructor, the master data table is fed into static variables implemented as follows:
+        1) sStations : vector storing all stations in the System
+        2) sDistStations : implemented as an unordered_map consisting of : a current Station and another unordered_map consisting of : destination Station and a double value denoting the distance
+           unordered_map is a container for a hashmap in C++ STL stroed as key/value pairs
+           Thus, distances between two stations s1="Delhi" and s2="Mumbai" can be easily accessed through their names as, sDistStations["Delhi"]["Mumbai"]
+    (d) GetInstance() as explained in "General coding principles" returns an instance to the singleton object
+
+Class BookingClasses :
+    (a) Base class in the hierarchy, with virtual destructors to prevent slicing of derived objects
+    (b) Encapsulation is preserved with data members being protected (as they will be inherited)
+    (c) All data members are defined in the base class
+    (d) Destructor is made virtual to preserve the polymorphic hierarchy and initiate calls to destructors of derived classes 
+    (e) Based on the property of Seats/berths the inheritance heirarchy was formulated as a multi-level hierarchy rather than a multiple inheritance hierarchy
+
+Class SeatClasses, BerthClasses :
+    (a) Both implemented as abstract classes (contain a virtual function)
+    (b) Both have virtual destructors
+    (c) Constructors are defined in protected specifier which make a call to the constructor of the base class and intialise the attributes
+
+Class ACFirstClass, AC2Tier, FirstClass, AC3Tier, ACChairCar, Sleeper, SecondSitting :
+    (a) Implemented as singletons (preventing similar object creation) which return const objects
+    (b) Constructors defined in private specifier and pass constant arguments according to the master data table into the constructors of the base classes Seat/Berth
+    (c) Also, the virtual function is overriden and implemented with appropriate return values
+
+Class Booking :
+    (a) Stores all data members under private specifier, and static variables under public specifer (so that these can be changed conveniently)
+    (b) It also stores a 'reference' of the abstract class BookingClasses so that objects of specialised types can be referenced through this 'reference'.
+    (c) Constructor intialises the attributes and calls the ComputeFare() function to calculate the final fare according to the business logic
+    (d) The instance of class Railways is created by the name of "IndianRailways" inside the ComputeFare() fn. to access the Station details 
+    (e) All bookings done are stored in a vector, defined as a static variable which can be accesed in any part of the final application
+    (f) Overloaded operator << implemented as a friend fn. prints the desired format of the booking details onto the output screen
+

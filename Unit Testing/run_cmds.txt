@@ -1,0 +1,18 @@
+// 19CS30018 - Gaurav Madkaikar
+
+COMMANDS TO COMPILE AND RUN THE PROJECT:
+
+Apply this command to compile:
+
+g++ -c Main.cpp 
+g++ -c Station.cpp
+g++ -c Railways.cpp
+g++ -c Date.cpp
+g++ -c BookingClasses.cpp  
+g++ -c Booking.cpp
+g++ -o UnitTest.exe Station.o Railways.o Date.o BookingClasses.o Booking.o Main.o 
+
+
+Apply this command to run the executable file (.exe)
+
+.\UnitTest.exe

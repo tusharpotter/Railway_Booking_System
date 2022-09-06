@@ -1,0 +1,31 @@
+
+COMMANDS TO COMPILE AND RUN THE PROJECT:
+
+Apply these commands to compile:
+
+1) Sample Test Application
+g++ -c Main.cpp 
+g++ -c Station.cpp
+g++ -c Railways.cpp
+g++ -c Date.cpp
+g++ -c BookingClasses.cpp  
+g++ -c Booking.cpp
+g++ -c Application.cpp 
+g++ -o Booking.exe Station.o Railways.o Date.o BookingClasses.o Booking.o Main.o Application.o
+
+AND
+
+2) User Test Application
+g++ -c Main.cpp 
+g++ -c Station.cpp
+g++ -c Railways.cpp
+g++ -c Date.cpp
+g++ -c BookingClasses.cpp  
+g++ -c Booking.cpp
+g++ -c UserTestApplication.cpp
+g++ -o Booking.exe Station.o Railways.o Date.o BookingClasses.o Booking.o Main.o UserTestApplication.o
+
+
+Apply this command to run the executable file (.exe)
+
+.\Booking.exe
