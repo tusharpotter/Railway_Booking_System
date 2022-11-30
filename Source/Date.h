@@ -1,4 +1,4 @@
-// 19CS30018 - Gaurav Madkaikar
+
 
 #ifndef _DATE_H
 #define _DATE_H
