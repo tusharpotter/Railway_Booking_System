@@ -1,5 +1,5 @@
 
-// 19CS30018 - Gaurav Madkaikar
+
 
 #include<iostream>
 #include<vector>
